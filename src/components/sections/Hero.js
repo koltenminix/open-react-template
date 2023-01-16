@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 
@@ -6,6 +6,8 @@ import Image from '../elements/Image';
 
 import BlokeAva from "../../assets/images/204.png"
 import BlokeAva1 from "../../assets/images/1740.png"
+import Web3 from "web3";
+import ABI from "../../mintAbi.json";
 
 const propTypes = {
   ...SectionProps.types
@@ -25,8 +27,21 @@ const Hero = ({
   invertColor,
   ...props
 }) => {
-
-
+  const [amountMinted, setAmountMinted] = useState('');
+  const [maxSupply, setMaxSupply] = useState('');
+  const [accounts, setAccounts] = useState([]);
+  const setHomePageNumbers = async () => {
+    const web3 = new Web3(window.ethereum);
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    setAccounts(accounts);
+    const contract = await new web3.eth.Contract(ABI, "0x931f88Fc7f13217ca30e5bd9AC9261a47A95DBd1");
+    const mints = await contract.methods.totalAmount().call();// get amount of what has been minted from the contract
+    setAmountMinted(mints);
+    const supply = await contract.methods.maxSupply().call();
+    setMaxSupply(supply);
+  }
 
 
 
@@ -44,6 +59,11 @@ const Hero = ({
     topDivider && 'has-top-divider',
     bottomDivider && 'has-bottom-divider'
   );
+
+  useEffect(() => {
+    setHomePageNumbers();
+    setAccounts(accounts)
+  }, []);
 
   return (
     <section
@@ -64,7 +84,7 @@ const Hero = ({
                 <div className="ui tiny text-color-primary inverted three statistics">
                   <div className="statistic">
                     <div className="value">
-                      6,705
+                      {maxSupply}
                     </div>
                     <div className="label">
                       BLOKés
@@ -72,7 +92,7 @@ const Hero = ({
                   </div>
                   <div className="statistic">
                     <div className="value">
-                      0
+                      {amountMinted}
                     </div>
                     <div className="label">
                       Minted

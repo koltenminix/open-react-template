@@ -7,16 +7,14 @@ import ABI from "../../mintAbi.json";
 
 const Bloke = ({blokeData}) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [error, setError] = useState(null);
     const ids = Object.keys(blokeData);
 
     return (<div className="scrolling content">
             <div className="ui grid">
-                {ids.map(id => {
 
-                    //console.log(Math.ceil(blokeData[id].attributes[7]['value'] / 100));
-                    //{}
+                {ids.map(id => {
                     return (
+
                         <div className="three wide column">
                             <div className="ui card">
                                 <div className="extra content">
@@ -29,7 +27,7 @@ const Bloke = ({blokeData}) => {
                                 </div>
                                 <div className="image">
                                     <Image
-                                        src={blokeData[id].image} alt="Features split 01"
+                                        src={blokeData[id].image} alt="BlokeImg"
                                         width={528}
                                         height={396}/>
                                 </div>

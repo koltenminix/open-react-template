@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.1",
+    "@openzeppelin/contracts": "^4.8.1",
     "classnames": "^2.2.6",
     "dart-sass": "^1.25.0",
     "ethers": "^5.7.2",
+    "hardhat": "^2.12.6",
     "lodash": "^4.17.15",
     "node-sass": "^8.0.0",
     "react": "^16.13.1",
